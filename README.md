@@ -1,9 +1,9 @@
 # STM32 Nucleo Temperature Alarm
 
 ## Overview
-The objective of this project is to gain practical experience with the STM32 Nucleo ecosystem and PCB design using KiCad.  
-Additionally, it implements an integrated temperature alarm system that activates when the measured temperature falls below a user-defined threshold.  
-A potential application is monitoring room temperature when ventilating by opening windows.
+This project demonstrates an STM32 Nucleo-based temperature alarm system with a custom PCB designed in KiCad.  
+It integrates multiple I/O types, including I²C, ADC with interrupts, PWM, GPIO buttons, and LEDs.  
+The system triggers an alarm when the measured temperature falls below a user-defined threshold, with potential use in room ventilation monitoring.
 
 ## Hardware
 - STM32 Nucleo F042K6 development board
@@ -14,6 +14,7 @@ A potential application is monitoring room temperature when ventilating by openi
 - Buzzer for alarm output
 - OLED display
 - Status LEDs
+
 ### System overview
 <p align="left">
   <img src="images/system_overview.png" alt="System Overview" width="60%"/>
@@ -41,9 +42,8 @@ The Schematic in Kicad is shown below
 </p>
 
 
-
 ## Firmware
-The firmware was developed using STM32CubeIDE.  
+The firmware was developed using the STM32CubeIDE.  
 It is available in the [`stm32_firmware/`](./stm32_firmware) folder.  
 To rebuild the project, open the `.ioc` configuration file in STM32CubeMX, regenerate the source code, and compile it with STM32CubeIDE or a compatible ARM toolchain.
 
@@ -59,10 +59,15 @@ To rebuild the project, open the `.ioc` configuration file in STM32CubeMX, regen
 </p>
 
 
+
+## Summary
+The analog TMP36 sensor exhibited a measurement deviation of approximately 0–2 °C above the reference temperature.  
+This deviation was not caused by an ADC reading error, as the oscilloscope confirmed the same voltage as the ADC input (data not shown).  
+Aside from this discrepancy, the system performed as expected.
+
+
 ## License
 MIT License (or your choice)
-
-
 
 
 [stm32-ssd1306]: https://github.com/afiskon/stm32-ssd1306
