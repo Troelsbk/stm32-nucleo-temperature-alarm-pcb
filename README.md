@@ -43,20 +43,21 @@ The Schematic in Kicad is shown below
 
 
 ## Firmware
-- Developed using STM32CubeMX and STM32 HAL drivers
-- Implements:
-  - Temperature reading
-  - Button input handling
-  - Threshold comparison
-  - Buzzer control
+The firmware was developed using STM32CubeIDE.  
+It is available in the [`stm32_firmware/`](./stm32_firmware) folder.  
+To rebuild the project, open the `.ioc` configuration file in STM32CubeMX, regenerate the source code, and compile it with STM32CubeIDE or a compatible ARM toolchain.
 
-Firmware source is located in the [`firmware/`](./firmware) folder.  
-To rebuild: open the `.ioc` file in STM32CubeMX, generate code, then compile in your IDE (e.g., STM32CubeIDE).
+## PCB 
+### Wiring 
+<p align="left">
+  <img src="images/PCB.png" alt="System Overview" width="70%"/>
+</p>
 
-## How to Build & Run
-1. Flash the firmware to the STM32 Nucleo board.  
-2. Connect the PCB with the buzzer, buttons, and sensor.  
-3. Power up and test by adjusting the threshold.  
+### 3D model
+<p align="left">
+  <img src="images/PCB_3D.png" alt="System Overview" width="70%"/>
+</p>
+
 
 ## License
 MIT License (or your choice)
