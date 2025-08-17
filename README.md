@@ -1,19 +1,30 @@
 # STM32 Nucleo Temperature Alarm
 
 ## Overview
-A temperature monitoring system built with an **STM32 Nucleo board** and a **custom PCB**.  
+A temperature monitoring system built with an STM32 Nucleo board and a custom PCB.  
 The system measures temperature, compares it to a user-set threshold (configured via push buttons), and activates a buzzer if the temperature falls below the threshold.
 
-This project demonstrates both **embedded firmware development** and **hardware design (KiCad)**.
 
 ## Hardware
-- STM32 Nucleo development board
+- STM32 Nucleo F042K6 development board
 - Custom PCB designed in KiCad
-- Temperature sensor
+- Analog temperature sensor TMP36
+- "Digital" temperature sensor TMP102
 - Push buttons for setting threshold
 - Buzzer for alarm output
+- OLED display
+- Status LEDs
+### System overview
+<p align="left">
+  <img src="images/system_overview.png" alt="System Overview" width="60%"/>
+</p>
 
-The full schematic and PCB layout are available in the [`hardware/`](./hardware) folder.
+### Schematic
+<p align="left">
+  <img src="images/schematic.png" alt="System Overview" width="80%"/>
+</p>
+
+<!--The full schematic and PCB layout are available in the [`hardware/`](./hardware) folder.--!>
 
 ## Firmware
 - Developed using STM32CubeMX and STM32 HAL drivers
