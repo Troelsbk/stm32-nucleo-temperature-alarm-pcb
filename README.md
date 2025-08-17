@@ -1,9 +1,9 @@
 # STM32 Nucleo Temperature Alarm
 
 ## Overview
-A temperature monitoring system built with an STM32 Nucleo board and a custom PCB.  
-The system measures temperature, compares it to a user-set threshold (configured via push buttons), and activates a buzzer if the temperature falls below the threshold.
-
+The objective of this project is to gain practical experience with the STM32 Nucleo ecosystem and PCB design using KiCad.  
+Additionally, it implements an integrated temperature alarm system that activates when the measured temperature falls below a user-defined threshold.  
+A potential application is monitoring room temperature when ventilating by opening windows.
 
 ## Hardware
 - STM32 Nucleo F042K6 development board
@@ -19,12 +19,28 @@ The system measures temperature, compares it to a user-set threshold (configured
   <img src="images/system_overview.png" alt="System Overview" width="60%"/>
 </p>
 
+### OLED
+This project uses [stm32-ssd1306] as the display library.  
+In addition, I implemented three helper functions to streamline the process of printing text to the OLED.  
+These functions are defined in `oled_function.c`:
+
+- `void send_strXY(char *str, uint8_t x, uint8_t y, uint8_t size);`
+- `char send_charXY(char ch, uint8_t x, uint8_t y);`
+- `void clear_oled(void);`
+
+
 ### Schematic
+The Schematic in Kicad is shown below
 <p align="left">
   <img src="images/schematic.png" alt="System Overview" width="80%"/>
 </p>
 
-<!--The full schematic and PCB layout are available in the [`hardware/`](./hardware) folder.--!>
+### Breadboard prototype
+<p align="left">
+  <img src="images/breadboard_prototype.png" alt="System Overview" width="60%"/>
+</p>
+
+
 
 ## Firmware
 - Developed using STM32CubeMX and STM32 HAL drivers
@@ -44,3 +60,10 @@ To rebuild: open the `.ioc` file in STM32CubeMX, generate code, then compile in 
 
 ## License
 MIT License (or your choice)
+
+
+
+
+[stm32-ssd1306]: https://github.com/afiskon/stm32-ssd1306
+
+
