@@ -69,14 +69,12 @@ The red LED flashes, and the buzzer sounds, when the temperature measured by the
   <img src="images/Final_PCB.JPG" alt="PCB 3D Model" width="70%"/>
 </p>
 
-## PCB Performance
+### PCB Performance
 The analog TMP36 sensor showed a deviation of 0–3 °C above the reference, while the TMP102 measured about 1 °C higher.  
 Aside from these temperature discrepancies, the PCB performed as expected.
 
 ## Demo Video
 [![Watch the demo video](https://img.youtube.com/vi/QukV7sXWB6A/0.jpg)](https://youtu.be/QukV7sXWB6A)
-
-
 
 ## Summary
 Overall, the project achieved its primary goal of providing hands-on experience with KiCad, as well as STM32 features including ADC with interrupts, timers, I²C, PWM, GPIO, and OLED display integration.  
