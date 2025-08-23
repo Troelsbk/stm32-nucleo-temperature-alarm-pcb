@@ -56,6 +56,7 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 int i;
+const int TMP102_error = 1;
 const uint32_t debounce_delay = 200;
 uint32_t last_GPIO_PIN_0_press = 0;
 uint32_t last_GPIO_PIN_1_press = 0;
@@ -135,8 +136,8 @@ int main(void)
   i = 18;
 
   //temp text out
-  char temp_set_text[15];
-  memset(temp_set_text, 0x00, 15);
+  char temp_set_text[20];
+  memset(temp_set_text, 0x00, 20);
 
   //temp variables
   uint8_t tmp102_addr = (0x48 << 1);
@@ -171,14 +172,13 @@ int main(void)
 
 		    float temp = raw * 0.0625f;
 		    scaled = (int)(temp * 100);
-		    sprintf(temp_out_buffer, "TMP102:%d.%02d C", scaled / 100, abs(scaled % 100));
+		    sprintf(temp_out_buffer, "TMP102:%d.%02d C", (scaled / 100)-TMP102_error, abs(scaled % 100));//correct temp. by subtracting 1
 		    send_strXY(temp_out_buffer, 0, 0, 22);
 		    HAL_GPIO_WritePin(TMP_OK_LED_GPIO_Port, TMP_OK_LED_Pin, GPIO_PIN_SET);
-		    HAL_GPIO_WritePin(TMP_OFF_LED_GPIO_Port, TMP_OFF_LED_Pin, GPIO_PIN_RESET);
 	  }
 	  else{
 		    HAL_GPIO_WritePin(TMP_OK_LED_GPIO_Port, TMP_OK_LED_Pin, GPIO_PIN_RESET);
-		    HAL_GPIO_WritePin(TMP_OFF_LED_GPIO_Port, TMP_OFF_LED_Pin, GPIO_PIN_SET);
+
 
 		    HAL_I2C_DeInit(&hi2c1);
 		    //HAL_I2C1
@@ -189,12 +189,21 @@ int main(void)
 	  }
 
 	  //show set temp
-	  sprintf(temp_set_text, "Set temp = %i", i);
+	  sprintf(temp_set_text, "Alarm temp=%i C", i);
 	  send_strXY(temp_set_text, 0, 1, 15);
 
 	  //test for alarm
-	  if( i > (scaled/100) ){
+	  if( i > ((scaled/100)- TMP102_error) ){
 		  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);//start alarm
+		  HAL_GPIO_WritePin(TMP_OFF_LED_GPIO_Port, TMP_OFF_LED_Pin, GPIO_PIN_SET); //turnoff red led
+
+		  HAL_Delay(250);
+		  HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_3);//stop alarm
+		    HAL_GPIO_WritePin(TMP_OFF_LED_GPIO_Port, TMP_OFF_LED_Pin, GPIO_PIN_RESET);
+
+		  HAL_Delay(250);
+
+
 	  }
 	  else{
 		  HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_3);//stop alarm
@@ -228,7 +237,7 @@ int main(void)
 		  char text_tmp36_tmp[20];
 		  memset(text_tmp36_tmp, 0x00, 20);
 		  int32_t cdeg = tmp36_cdeg_from_mV((uint32_t)voltage);
-		  sprintf(text_tmp36_tmp, "TMP36: %ld.%02ld", cdeg/100, labs(cdeg%100));
+		  sprintf(text_tmp36_tmp, "TMP36:%ld.%02ldC", (cdeg/100)-4, labs(cdeg%100));//correct temperature by subtracting 4!
 		  send_strXY(text_tmp36_tmp, 0, 5, 20);
 
 	  }
@@ -601,8 +610,27 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	}
 }
 
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
+	//uint32_t now = HAL_GetTick();
+
+    if (GPIO_Pin == GPIO_PIN_0)
+    {
+        		i -= 1;
+    }
+    if (GPIO_Pin == GPIO_PIN_1)
+    {
+    		i += 1;
+    }
+}
+
+
+
+/*
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	//old version before adding capacitors
 	uint32_t now = HAL_GetTick();
 
     if (GPIO_Pin == GPIO_PIN_0) {
@@ -619,6 +647,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     	}
     }
 }
+*/
 
 /* USER CODE END 4 */
 
