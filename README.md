@@ -60,10 +60,27 @@ To rebuild the project:
   <img src="images/PCB_3D.png" alt="PCB 3D Model" width="70%"/>
 </p>
 
+### Assembled PCB
+The fully assembled PCB is shown below.  
+The green LED indicates that the I²C bus is operational.  
+The red LED flashes, and the buzzer sounds, when the temperature measured by the TMP102 falls below the user-defined threshold.
+
+<p align="left">
+  <img src="images/Final_PCB.JPG" alt="PCB 3D Model" width="70%"/>
+</p>
+
+## PCB Performance
+The analog TMP36 sensor showed a deviation of 0–3 °C above the reference, while the TMP102 measured about 1 °C higher.  
+Aside from these temperature discrepancies, the PCB performed as expected.
+
+## Demo Video
+[![Watch the demo video](https://img.youtube.com/vi/QukV7sXWB6A/0.jpg)](https://youtu.be/QukV7sXWB6A)
+
+
+
 ## Summary
-The analog TMP36 sensor exhibited a measurement deviation of approximately 0–2 °C above the reference temperature.  
-This deviation was not caused by an ADC error, as oscilloscope measurements confirmed the same voltage at the ADC input (data not shown).  
-Apart from this discrepancy, the system performed as expected.
+Overall, the project achieved its primary goal of providing hands-on experience with KiCad, as well as STM32 features including ADC with interrupts, timers, I²C, PWM, GPIO, and OLED display integration.  
+This made it a valuable learning and familiarization exercise with the STM32 Nucleo ecosystem.
 
 ## License
 MIT License (or another license of your choice).
